@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+       x:Class="Automate.MainPage">
+
+    <FlyoutItem Title="Автомат">
+        <ContentPage Title="Клеточный автомат"
+                     x:Name="_contentPage">
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  BackgroundColor="CornflowerBlue">
+                <skia:SKCanvasView x:Name="_canvas"
+                                   PaintSurface="Canvas_PaintSurface">
+                </skia:SKCanvasView>
+
+                <StackLayout Orientation="Vertical"
+                             BackgroundColor="CornflowerBlue"
+                             VerticalOptions="EndAndExpand"
+                             Margin="10,0,10,0"
+                             x:Name="_controls">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Произведение анимации"
+                               VerticalOptions="Center"
+                               FontSize="18"/>
+                        <Switch HorizontalOptions="Start"  x:Name="_switch" OnColor="Bisque" ThumbColor="PeachPuff" Toggled="StartOrPause"/>
+                    </StackLayout>
+
+                    <Label Text="Скорость жизни"
+                           FontSize="18"/>
+                    <Slider Minimum="0"
+                            Maximum="4000"
+                            MinimumTrackColor="Plum"
+                            MaximumTrackColor="MidnightBlue"
+                            ThumbImageSource=""
+                            x:Name="_liveSpeed"/>
+                </StackLayout>
+            </Grid>
+        </ContentPage>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Настройки">
+        <ContentPage Title="Настройки автомата">
+            <ScrollView>
+                <StackLayout>
+                    <TableView>
+                        <TableRoot Title="Первоначальные настройки">
+                            <TableSection Title="Размеры поля">
+                                <EntryCell Label="Длина по горизонтали" Placeholder="Введите х"
+                                       Keyboard="Numeric" x:Name="_xLenght"/>
+                                <EntryCell Label="Длина по вертикали" Placeholder="Введите y"
+                                       Keyboard="Numeric" x:Name="_yLenght"/>
+                            </TableSection>
+                            <TableSection Title="Правила игры">
+                                <EntryCell Label="Жизнь зарождается при" Placeholder="например: 2,3"
+                                       Keyboard="Default"  x:Name="_startLive"/>
+                                <EntryCell Label="Продолжает жить при" Placeholder="2,3,4"
+                                       Keyboard="Default" x:Name="_stillLive"/>
+                            </TableSection>
+                            <TableSection>
+                                <ViewCell>
+                                    <Button Text="Применить" HorizontalOptions="StartAndExpand" Clicked="SaveSettings"/>
+                                </ViewCell>
+                            </TableSection>
+                            <TableSection Title="Расположение первого поколения">
+                                <EntryCell Label="Выбрать поле в центре, длины" Placeholder="10"
+                                       Keyboard="Numeric" Completed="EntryCell_Completed"
+                                       x:Name="_numOfTestTableButtons"/>
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                    
+                    <Grid x:Name="_testTable" ColumnSpacing="3"/>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage>
+    </FlyoutItem>
+
+</Shell>
